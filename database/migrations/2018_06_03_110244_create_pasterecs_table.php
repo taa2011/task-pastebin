@@ -15,6 +15,7 @@ class CreatePasterecsTable extends Migration
     {
         Schema::create('pasterecs', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->nullable();
             $table->text('code');
             $table->string('hash')->nullable()->unique();
             $table->timestamps();

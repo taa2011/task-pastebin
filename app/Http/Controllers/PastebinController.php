@@ -6,19 +6,19 @@ namespace App\Http\Controllers;
 use App\Pasterec;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
+
 class PastebinController extends Controller
 {
+
+
+
     public function post(Request $request)
     {
 
-        $pasterec = new Pasterec;
-
-        $pasterec->code = $request->code;
-        $pasterec->hash = substr(str_shuffle('1234567890qwertyuiopasdfghjklzxcvbnm'),1,8);
-        $pasterec->save();
+        $pasterec = Pasterec::fromRequest($request);
 
         return redirect()->route('show', $pasterec->hash);
-        // return view('request', compact('request'));
     }
 
     public function show(Pasterec $pasterec)
@@ -30,14 +30,7 @@ class PastebinController extends Controller
     public function main()
     {
         $last10 = $this->getLast10();
-        return view('welcome', compact('last10'));
-    }
-
-
-    public function test()
-    {
-        $last10 = $this->getLast10();
-        return view('last10pasterecs', compact('last10'));
+        return view('main', compact('last10'));
     }
 
     private function getLast10()

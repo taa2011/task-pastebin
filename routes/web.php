@@ -11,17 +11,19 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-// Route::get('/',  'PastebinController@main');
-// Route::post('/', 'PastebinController@post');
-// Route::get('test', 'PastebinController@test');
-// Route::get('{pasterec}', ['as' => 'show', 'uses' => 'PastebinController@show']);
-
-
+Route::get('/',  'PastebinController@main');
+Route::post('/', 'PastebinController@post');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('myrecs', 'HomeController@index');
+
+// Route::get('test', 'PastebinController@test');
+Route::get('{pasterec}', ['as' => 'show', 'uses' => 'PastebinController@show']);
+
+
+

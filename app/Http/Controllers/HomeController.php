@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use App\Pasterec;
+
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +27,19 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $myrecs = $this->getMyRecs();
+        return view('myrecs', compact('myrecs'));
+
     }
+
+    private function getMyRecs()
+    {
+        ;
+        $myrecs = User::find(Auth::user()->id)->pasterecs->sortByDesc('created_at');
+        // $myRecs = Pasterec::orderBy('created_at', 'desc')
+        //     ->get();
+
+        return $myrecs;
+    }
+
 }
